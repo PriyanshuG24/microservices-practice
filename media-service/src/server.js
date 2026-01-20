@@ -38,13 +38,12 @@ app.use(errorHandler)
 //consume events
 async function startServer() {
     try {
-        await connectRabbitMQ()
-
-        //consume all the events
-        await consumeEvent('post.deleted', handlerPostdelete)
         app.listen(port, () => {
             logger.info(`Media service running on port ${port}`)
         })
+        await connectRabbitMQ()
+        //consume all the events
+        await consumeEvent('post.deleted', handlerPostdelete)
     } catch (error) {
         logger.error("Error connecting to RabbitMQ", error)
     }

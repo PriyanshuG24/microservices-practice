@@ -37,8 +37,6 @@ const createPost = async (req, res) => {
             content: post.content,
             createdAt: post.createdAt
         })
-
-
         logger.info("Post created successfully", post);
         await invalidatePostCache(req, post._id.toString())
         return res
